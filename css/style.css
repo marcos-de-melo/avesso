@@ -22,7 +22,8 @@ body{
 }
 .main-header{
 background: #1a1a1a;
-
+position: fixed;
+top: 0;
 }
 .main-header .content{
 display: flex;
@@ -31,7 +32,7 @@ align-items: center;
 height: 100px;
 }
 .box-lista-msg{
-
+margin-top: 100px;
 display: flex;
 flex-direction: column;
 align-items: flex-end;
@@ -39,25 +40,29 @@ gap: 20px;
 }
 .msg-box{
     width: 80%;
-    border:1px solid #5E60CE;
+    border:2px solid #01a23a;
     border-radius: 8px;
-    overflow: hidden;
+    
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     gap: 10px;
-    padding: 20px;
-
+    padding: 10px;
 }
 .msg-box:first-of-type{
     margin-top: 20px;
 }
+.msg-box:last-of-type{
+    margin-bottom: 100px;
+}
 .msg-box .logo-avatar{
     margin: 5px;
     border-radius: 5px;
+    border: 2px solid #5E60CE;
 }
 .msg-box h2{
-    font-weight: 300; 
+    font-size: 1rem;
+    font-weight: bold; 
     color: #5E60CE;
 }
 .msg-box p{
@@ -67,7 +72,8 @@ gap: 20px;
     margin-bottom: 10px;
 }
 .msg-time{
-
+width: 100%;
+text-align: right;
 }
 
 
@@ -81,9 +87,61 @@ gap: 20px;
 }
 
 footer{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     height: 100px;
     background: #1a1a1a;
     width: 100%;
 }
+ footer .content{
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+ }
+ footer .content form{
+    width: 80%;
+    display: flex;    
+ }
+ footer .content a{
+    height: 50px;
+    width: 20%;
+    background: #000000;
+    border: 2px solid #00875F;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00875F;
+ }
+ footer .content a:hover{
+   
+    background: #00875F;
+    color: white;
+   
+ }
+ footer .content form input{
+    border: 3px solid #01a23a;
+    background-color: #333333;
+    color: #c4c4c4;
+    border-radius: 5px;
+    height: 50px;
+    width: 80%;
+    padding: 10px 5px 10px 20px;
+}
+ footer .content form button{
+    width: 20%;
+    border: 2px solid #00875F;
+    border-radius: 5px;
+    height: 50px;
+    margin-left: 10px;
+    background: #00875F;
+    color: white;
+ }
+ footer .content form button:hover{
+    background: #00B37E;
+ }
+

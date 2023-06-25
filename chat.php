@@ -1,3 +1,17 @@
+<?php
+include("./db/conexao.php");
+if(isset($_GET["atualiza"])){
+    header('Location:chat.php#fim');
+}
+$usuarioLogado = 1;
+if(isset($_POST["txtMsg"])){
+    $txtMsg = $_POST["txtMsg"];
+    $dataHora = date("Y-m-d H:i:s");
+    $sql = "INSERT INTO tbmensagens (idUsuario, mensagem, dataHora) VALUES ('$usuarioLogado','$txtMsg','$dataHora')";
+    mysqli_query($conexao,$sql) or die(mysqli_error($conexao));
+    header('Location:chat.php#fim');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduFofoca Chat</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -17,34 +32,46 @@
 
         <section class="container">
             <div class="box-lista-msg content">
-                <article class="msg-box msg-you">
-                    <img class="logo-avatar" width="50" src="https://github.com/marcos-de-melo.png" alt="Avatar">
-                    <link rel="stylesheet" href="./css/style.css">
-                    <div>
-                        <h2>Marcos</h2>
-                        <p>Minha Mensagem aqui,... sit ing elit. Totam dicta, adipisci nisi odio porro aliquid voluptatem!</p>
-                        <p>13:41</p>
-                    </div>
-                </article>
-                <article class="msg-box msg-others">
-                    <img class="logo-avatar" width="50" src="https://github.com/marcos-de-melo.png" alt="Avatar">
-                    <div>
-                        <h2>Marcos</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum molestias doloremque suscipit error, pariatur maiores deleniti quod nulla tempore? Dolorum rem quo ad inventore. Debitis velit voluptates consectetur vitae laudantium!</p>
-                        <p class="msg-time">13:41</p>
-                    </div>
+                <?php
+                
+                $sql = "SELECT * FROM tbmensagens as m inner join tbusuarios as u on m.idUsuario = u.idUsuario";
+                $rs = mysqli_query($conexao, $sql);
+                while ($dados = mysqli_fetch_assoc($rs)) {
+                    $idUsuario = $dados["idUsuario"];
+                    $imgAvatarUsuario = $dados["imgAvatarUsuario"];
+                    $nickname = $dados["nickname"];
+                    $msg = $dados["mensagem"];
+                    $dataHora = $dados["dataHora"];
+                    $classBoxMsg = ($usuarioLogado==$idUsuario)?"msg-you":"msg-others";
 
+                ?>
+                    <article class="msg-box <?=$classBoxMsg?>">
+                        <img class="logo-avatar" width="50" src="<?=$imgAvatarUsuario?>" alt="Avatar">
+                        
+                        <div>
+                            <h2><?=$nickname?></h2>
+                            <p><?=$msg?></p>
+                            <p class="msg-time"><?=$dataHora?></p>
+                        </div>
+                    </article>
+                <?php
+                }
+                ?>
+<p id="fim"></p>
 
-                </article>
             </div>
         </section>
 
     </main>
-    <footer>
-        <form action="" method="post">
-            <input type="text" name="txtMsg"> <button type="submit">Enviar</button>
-        </form>
-        <a href="http://">Atualizar</a>
+    <footer class="rodape container">
+        <div class="content">
+            <form action="" method="post">
+                <input type="text" name="txtMsg"> <button type="submit">Enviar</button>
+            </form>
+            <a href="?atualiza=1">Atualizar</a>
+
+        </div>
+
     </footer>
 </body>
 
