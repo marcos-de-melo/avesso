@@ -76,7 +76,6 @@ width: 100%;
 text-align: right;
 }
 
-
 .msg-you{
    
     background: #333333;
@@ -121,7 +120,6 @@ footer{
    
     background: #00875F;
     color: white;
-   
  }
  footer .content form input{
     border: 3px solid #01a23a;
@@ -145,3 +143,41 @@ footer{
     background: #00B37E;
  }
 
+.formLogin{
+    width: 300px;
+    margin: 200px auto;  
+}
+.formLogin form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.formLogin form input{
+    border: 3px solid #01a23a;
+    background-color: #333333;
+    color: #c4c4c4;
+    border-radius: 5px;
+    height: 50px;
+    width: 100%;
+    padding: 10px 5px 10px 20px;
+}
+.formLogin form button{
+    width: 100%;
+    border: 2px solid #00875F;
+    border-radius: 5px;
+    height: 50px;
+    margin-left: 10px;
+    background: #00875F;
+    color: white;
+}
+.formLogin form button:hover{
+    background: #00B37E;
+}
+
+.error{
+    width: 100%;
+    background: rgb(183, 63, 63);
+    border-radius: 5px;
+    padding: 10px;
+}
