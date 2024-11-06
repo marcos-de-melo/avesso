@@ -1,8 +1,8 @@
 <?php
-    const SERVIDOR = "ftp.marcosdemelo.com";
-    const USUARIO = "marcosde_rootchat";
-    const SENHA = "#MM#adm00";
-    const BANCO = "marcosde_chat";
+    const SERVIDOR = "localhost";
+    const USUARIO = "root";
+    const SENHA = "";
+    const BANCO = "dbchatphp";
 
     $conexao = mysqli_connect(SERVIDOR,USUARIO,SENHA,BANCO);
 ?>

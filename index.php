@@ -19,6 +19,7 @@ if (isset($_POST["nickname"]) &&  isset($_POST["senhaUsuario"])) {
         session_start();
         $_SESSION["nickname"] = $nickname;
         $_SESSION["senhaUsuario"] = $senhaUsuario;
+        $_SESSION["usuarioLogado"] = $dados["idUsuario"];
 
 
         header('Location: chat.php');
@@ -60,6 +61,8 @@ if (isset($_POST["nickname"]) &&  isset($_POST["senhaUsuario"])) {
 
         </div>
     </main>
+
+   
 </body>
 
 </html>
