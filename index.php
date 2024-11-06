@@ -5,11 +5,11 @@ include "./db/conexao.php";
 
 $msg_error = "";
 
-if (isset($_POST["nickname"]) &&  isset($_POST["senhaUsuario"])) {
-    $nickname =  mysqli_escape_string($conexao, $_POST["nickname"]);
+if (isset($_POST["emailUsuario"]) &&  isset($_POST["senhaUsuario"])) {
+    $emailUsuario =  mysqli_escape_string($conexao, $_POST["emailUsuario"]);
     $senhaUsuario = $_POST["senhaUsuario"];
 
-    $sql = "SELECT * FROM tbusuarios WHERE nickname = '{$nickname}' 
+    $sql = "SELECT * FROM tbusuarios WHERE emailUsuario = '{$emailUsuario}' 
         and senhaUsuario = '{$senhaUsuario}'";
     $rs = mysqli_query($conexao, $sql);
     $dados = mysqli_fetch_assoc($rs);
@@ -17,12 +17,13 @@ if (isset($_POST["nickname"]) &&  isset($_POST["senhaUsuario"])) {
 
     if ($linha != 0) {
         session_start();
-        $_SESSION["nickname"] = $nickname;
+        $_SESSION["emailUsuario"] = $emailUsuario;
         $_SESSION["senhaUsuario"] = $senhaUsuario;
-        $_SESSION["usuarioLogado"] = $dados["idUsuario"];
+        $_SESSION["idUsuarioLogado"] = $dados["idUsuario"];
+        $_SESSION["nomeUsuarioLogado"] = $dados["nomeUsuario"];
 
 
-        header('Location: chat.php');
+        header('Location: home.php');
     } else {
         $msg_error = "<div class='error'>
                             <p>Usuário não encontrado ou a senha não confere.</p>
@@ -49,8 +50,8 @@ if (isset($_POST["nickname"]) &&  isset($_POST["senhaUsuario"])) {
     <main>
         <div class="formLogin">
             <form action="index.php" method="post">
-                <label for="nickname">Nickname</label>
-                <input type="text" name="nickname">
+                <label for="emailUsuario">emailUsuario</label>
+                <input type="text" name="emailUsuario">
                 <label for="senhaUsuario">Senha</label>
                 <input type="password" name="senhaUsuario" id="senhaUsuario">
                 <button type="submit">Entrar no Chat</button>

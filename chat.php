@@ -30,13 +30,13 @@ if (isset($_SESSION["nickname"]) and isset($_SESSION["senhaUsuario"])) {
 if (isset($_GET["atualiza"])) {
     header('Location:chat.php#fim');
 }
-$usuarioLogado = $dados["idUsuario"];
+$idUsuarioLogado = $dados["idUsuario"];
 
 if (isset($_POST["txtMsg"])) {
     $txtMsg = $_POST["txtMsg"];
     $dataHora = date("Y-m-d H:i:s");
     $sql = "INSERT INTO tbmensagens (idUsuario, mensagem, dataHora) 
-    VALUES ('$usuarioLogado','$txtMsg','$dataHora')";
+    VALUES ('$idUsuarioLogado','$txtMsg','$dataHora')";
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
     header('Location:chat.php#fim');
 }
