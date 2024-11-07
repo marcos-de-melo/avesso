@@ -1,32 +1,55 @@
 
                 <?php
                 session_start();
-                $usuarioLogado = $_SESSION["usuarioLogado"];
+                $idDestinatario = $_SESSION["idDestinatario"];
+                $idUsuarioLogado = $_SESSION["idUsuarioLogado"];
                 include("./db/conexao.php");
-                $sql = "SELECT 
-                u.idUsuario,
-                imgAvatarUsuario,
-                nickname,
-                mensagem,
-                date_format(dataHora,'%d/%m/%Y  %H:%i:%s') as dataHora 
-                FROM tbmensagens as m inner join tbusuarios as u on m.idUsuario = u.idUsuario";
+                $sql = "update tbmensagens set msgVisualizada = 1 where idRemetente = {$idDestinatario} and idDestinatario = {$idUsuarioLogado} and msgVisualizada = 0";
+                
+                mysqli_query($conexao, $sql);
+
+
+
+                $sql = "select *,date_format(dataMsg,'%d/%m/%Y  %H:%i:%s') as dataMsg 
+from tbmensagens as m inner join tbusuarios as u on m.idRemetente=u.idUsuario 
+where  (idRemetente = {$idUsuarioLogado} and idDestinatario={$idDestinatario}) or (idRemetente  = {$idDestinatario} and idDestinatario={$idUsuarioLogado})
+order by dataMsg asc";
                 $rs = mysqli_query($conexao, $sql);
                 while ($dados = mysqli_fetch_assoc($rs)) {
                     $idUsuario = $dados["idUsuario"];
-                    $imgAvatarUsuario = $dados["imgAvatarUsuario"];
-                    $nickname = $dados["nickname"];
-                    $msg = $dados["mensagem"];
-                    $dataHora = $dados["dataHora"];
-                    $classBoxMsg = ($usuarioLogado == $idUsuario) ? "msg-you" : "msg-others";
+                    $fotoPerfilUsuario = $dados["fotoPerfilUsuario"];
+                    $nomeUsuario = $dados["nomeUsuario"];
+                    $msg = $dados["conteudoMsg"];
+                    $dataMsg = $dados["dataMsg"];
+                    $classBoxMsg = ($idUsuarioLogado == $idUsuario) ? "msg-you" : "msg-others";
                 ?>
                     <article class="msg-box <?= $classBoxMsg ?>">
                         <img class="logo-avatar" width="50" 
-                        src="<?= $imgAvatarUsuario ?>" 
+                        src="<?= $fotoPerfilUsuario ?>" 
                         alt="Avatar">
                         <div>
-                            <h2><?= $nickname ?></h2>
+                            <h2><?= $nomeUsuario ?></h2>
                             <p><?= $msg ?></p>
-                            <p class="msg-time"><?= $dataHora ?></p>
+                            <p class="msg-time"><?= $dataMsg ?></p>
+                        </div>
+                        <div class="msg-view">
+                            <?php
+                            if ($dados["msgVisualizada"] == 0) {
+                                ?>
+                                <p class='msg-viewed'>
+                                Nao visualizada
+                            </p>
+                                <?php
+                                
+                            }else{
+                                
+                                ?>
+                                <p class='msg-viewed'>
+                                Visualizado
+                            </p>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </article>
                 <?php

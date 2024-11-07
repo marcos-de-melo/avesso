@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 06-Nov-2024 às 20:08
+-- Tempo de geração: 07-Nov-2024 às 19:11
 -- Versão do servidor: 8.0.21
 -- versão do PHP: 7.4.9
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `tbmatches` (
   PRIMARY KEY (`idMatche`),
   KEY `usuario_id4_fk` (`idUsuario`),
   KEY `usuario_id5_fk` (`idUsuarioMatch`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `tbmatches`
@@ -75,7 +75,9 @@ INSERT INTO `tbmatches` (`idMatche`, `idUsuario`, `idUsuarioMatch`) VALUES
 (1, 1, 2),
 (2, 5, 4),
 (3, 5, 3),
-(4, 2, 1);
+(4, 2, 1),
+(5, 4, 5),
+(6, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -85,14 +87,61 @@ INSERT INTO `tbmatches` (`idMatche`, `idUsuario`, `idUsuarioMatch`) VALUES
 
 DROP TABLE IF EXISTS `tbmensagens`;
 CREATE TABLE IF NOT EXISTS `tbmensagens` (
+  `idMensagem` int NOT NULL AUTO_INCREMENT,
   `idRemetente` int NOT NULL,
   `idDestinatario` int NOT NULL,
   `conteudoMsg` text COLLATE utf8mb4_general_ci NOT NULL,
   `msgVisualizada` tinyint NOT NULL DEFAULT '0',
-  `dataMsg` date NOT NULL,
+  `dataMsg` timestamp NOT NULL,
+  PRIMARY KEY (`idMensagem`),
   KEY `remetente_id_fk` (`idRemetente`),
   KEY `destinatario_id_fk` (`idDestinatario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tbmensagens`
+--
+
+INSERT INTO `tbmensagens` (`idMensagem`, `idRemetente`, `idDestinatario`, `conteudoMsg`, `msgVisualizada`, `dataMsg`) VALUES
+(3, 2, 1, 'teste de msg', 1, '2024-11-07 03:00:00'),
+(4, 1, 3, 'teste de msg', 1, '2024-11-07 03:00:00'),
+(5, 1, 3, 'teste de msg', 1, '2024-11-07 03:00:00'),
+(6, 1, 3, 'teste de msg', 1, '0000-00-00 00:00:00'),
+(7, 1, 3, 'teste de msg', 1, '2024-11-07 13:45:24'),
+(8, 1, 3, 'teste de msg', 1, '2024-11-07 13:45:24'),
+(9, 1, 3, 'teste de msg', 1, '2024-11-07 03:00:00'),
+(11, 2, 1, 'teste da juliana', 1, '2024-11-07 14:23:54'),
+(14, 2, 1, 'teste da juliana', 1, '2024-11-07 14:27:39'),
+(16, 2, 1, 'Oi Marcos', 1, '2024-11-07 14:28:06'),
+(17, 2, 1, 'll', 1, '2024-11-07 14:30:26'),
+(20, 2, 1, 'teste', 1, '2024-11-07 14:49:46'),
+(22, 2, 1, 'fdgfdg', 1, '2024-11-07 14:57:08'),
+(27, 2, 1, 'sdfdsf', 1, '2024-11-07 14:59:57'),
+(28, 3, 2, 'teste de msg', 1, '2024-11-07 14:43:00'),
+(29, 3, 2, 'teste de msg', 1, '2024-11-07 14:43:00'),
+(30, 3, 2, 'teste de msg', 1, '2024-11-07 14:43:00'),
+(31, 3, 2, 'teste de msg', 1, '2024-11-07 14:43:00'),
+(32, 3, 2, 'teste de msg', 1, '2024-11-07 14:43:00'),
+(33, 2, 1, 'sdfdsf', 1, '2024-11-07 15:12:37'),
+(54, 2, 1, 'hhhhh', 1, '2024-11-07 19:37:51'),
+(55, 2, 1, 'dfsdf', 1, '2024-11-07 19:39:45'),
+(57, 4, 5, 'Oi Lara', 1, '2024-11-07 21:10:42'),
+(58, 4, 5, 'Oi HenrY', 1, '2024-11-07 21:11:03'),
+(59, 5, 4, 'Oi Lara', 1, '2024-11-07 21:11:09'),
+(60, 4, 5, 'ggg', 1, '2024-11-07 21:12:07'),
+(61, 5, 4, 'fff', 1, '2024-11-07 21:15:03'),
+(62, 4, 5, 'cxzczx', 1, '2024-11-07 21:15:29'),
+(63, 4, 5, 'sdfdsf', 1, '2024-11-07 21:15:37'),
+(64, 4, 5, 'sdad', 1, '2024-11-07 21:22:45'),
+(65, 4, 5, 'teste', 1, '2024-11-07 21:23:55'),
+(66, 4, 5, 'asdfasd', 1, '2024-11-07 21:33:25'),
+(67, 4, 5, 'asdfas', 1, '2024-11-07 21:36:57'),
+(68, 5, 4, 'dsfdsf', 1, '2024-11-07 21:37:13'),
+(69, 4, 5, 'zxC  vcdsafs fasdf asd fasd fasdfasd fasd fadsfasd asdf asdfasd f.', 0, '2024-11-07 22:06:12'),
+(70, 4, 5, 'asdfasd ads fasdf asdf asd fasdfsd asdfds ds fdsf adsfda ads fasdf asdf asdf adsfdsa fds fasdf asd fasdf aasd fasdfasdf asdfasd asd fasd fadsf adsfadsf asdfasdfasdfasdf asdfasf sdafsa', 0, '2024-11-07 22:06:34'),
+(71, 4, 5, 'sda', 0, '2024-11-07 22:07:04'),
+(72, 4, 5, 'fsdfds', 0, '2024-11-07 22:09:09'),
+(73, 3, 5, 'tstes', 0, '2024-11-07 22:10:30');
 
 -- --------------------------------------------------------
 
@@ -162,7 +211,7 @@ INSERT INTO `tbusuarios` (`idUsuario`, `emailUsuario`, `telefoneUsuario`, `senha
 (2, 'juliana@gmail.com', '(78) 88888-8888', '654321', 'Juliana', 'Aparecida', '1987-08-20', 1, NULL, 'Hétero', 'Feminino', 'Homem', 'http://github.com/nerdschooltech.png'),
 (3, 'nic@gmail.com', '(88) 88888-8888', '852963', 'nicoly', 'Melo', '1987-08-20', 2, NULL, 'Hétero', 'Feminino', 'Homem', 'http://github.com/nerdschooltech.png'),
 (4, 'lara@gmail.com', '(88) 84588-7858', '123456', 'Lara', 'Melo', '2015-08-15', 1, NULL, 'Hétero', 'Feminino', 'Homem', 'http://github.com/nerdschooltech.png'),
-(5, 'henry dog', '(88) 84588-7854', '123456', 'Henry', 'Gog', '2015-08-15', 2, NULL, 'Hétero', 'Masculino', 'Mulher', 'http://github.com/nerdschooltech.png');
+(5, 'henry@dog.com', '(88) 84588-7854', '123456', 'Henry', 'Gog', '2015-08-15', 2, NULL, 'Hétero', 'Masculino', 'Mulher', 'http://github.com/nerdschooltech.png');
 
 -- --------------------------------------------------------
 

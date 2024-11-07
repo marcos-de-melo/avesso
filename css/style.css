@@ -46,6 +46,7 @@ gap: 20px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 10px;
     padding: 10px;
 }
@@ -57,7 +58,7 @@ gap: 20px;
 }
 .msg-box .logo-avatar{
     margin: 5px;
-    border-radius: 5px;
+    border-radius: 100%;
     border: 2px solid #5E60CE;
 }
 .msg-box h2{
@@ -73,16 +74,19 @@ gap: 20px;
 }
 .msg-time{
 width: 100%;
-text-align: right;
+color: #838080 !important;
+font-size: 10px !important;
 }
 
 .msg-you{
-   
     background: #333333;
 }
 .msg-others{
     background: #494949;
     margin-right: 19%;
+}
+.msg-view{
+    display: flex;
 }
 
 footer{

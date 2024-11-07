@@ -1,15 +1,19 @@
 <?php
+session_start();
 date_default_timezone_set('America/Sao_Paulo');
 
 include("./db/conexao.php");
 
-session_start();
 
-if (isset($_SESSION["nickname"]) and isset($_SESSION["senhaUsuario"])) {
-    $nickname = $_SESSION["nickname"];
+if (isset($_SESSION["emailUsuario"]) and isset($_SESSION["senhaUsuario"])) {
+    $emailUsuario = $_SESSION["emailUsuario"];
     $senhaUsuario = $_SESSION["senhaUsuario"];
+    $_SESSION["idDestinatario"] = $_GET["idUsuarioMatch"];
 
-    $sql = "SELECT * FROM tbusuarios WHERE nickname = '{$nickname}' 
+
+    $idDestinatario = $_GET["idUsuarioMatch"];
+
+    $sql = "SELECT * FROM tbusuarios WHERE emailUsuario = '{$emailUsuario}' 
     and senhaUsuario = '{$senhaUsuario}'";
     $rs = mysqli_query($conexao, $sql);
     $dados = mysqli_fetch_assoc($rs);
@@ -27,19 +31,10 @@ if (isset($_SESSION["nickname"]) and isset($_SESSION["senhaUsuario"])) {
     exit();
 }
 
-if (isset($_GET["atualiza"])) {
-    header('Location:chat.php#fim');
-}
+
 $idUsuarioLogado = $dados["idUsuario"];
 
-if (isset($_POST["txtMsg"])) {
-    $txtMsg = $_POST["txtMsg"];
-    $dataHora = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO tbmensagens (idUsuario, mensagem, dataHora) 
-    VALUES ('$idUsuarioLogado','$txtMsg','$dataHora')";
-    mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
-    header('Location:chat.php#fim');
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,9 +62,11 @@ if (isset($_POST["txtMsg"])) {
     <footer class="rodape container">
         <div class="content">
             <form action="" method="post">
-                <input type="text" name="txtMsg"> <button type="submit">Enviar</button>
+                <input type="hidden" id="idDestinatario" name="idDestinatario" value="<?= $idDestinatario ?>">
+                <input type="hidden" id="idRemetente" name="idRemetente" value="<?= $idUsuarioLogado ?>">
+                <input type="text" id="txtMsg" name="txtMsg"> <button id="btn-insert-msg" type="submit">Enviar</button>
             </form>
-     
+
         </div>
     </footer>
     <script src="./js/jquery.js"></script>
